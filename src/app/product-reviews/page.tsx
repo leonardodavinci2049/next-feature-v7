@@ -1,12 +1,18 @@
-export async function generateStaticParams() {
-  return [{ id: "1" }, { id: "2" }, { id: "3" }];
-}
+import { Product } from "@/components/product";
+import { Reviews } from "@/components/reviews";
+import { Suspense } from "react";
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  return <h1>Product {id} details</h1>;
+
+export default function ProductDetailPage() {
+  return (
+    <div>
+      <h1>Product detail page</h1>
+      <Suspense fallback={<p>Loading product details...</p>}>
+        <Product />
+      </Suspense>
+      <Suspense fallback={<p>Loading reviews...</p>}>
+        <Reviews />
+      </Suspense>
+    </div>
+  );
 }
